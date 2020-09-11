@@ -2,7 +2,6 @@ language: python
 os:
 - linux
 python:
-- '3.5'
 - '3.6'
 - '3.7'
 - '3.8'
@@ -12,16 +11,20 @@ install:
 - pip install .
 stages:
 - lint
+- test
+- deploy
+script: pytest
 jobs:
   include:
   - stage: lint
     script: flake8 --max-line-length 120
-script: echo "Success!"
-deploy:
-  provider: pypi
-  user: __token__
-  password:
-    secure: guvesCD0yt2sNwGF49X/tqlJaGduZJMccu/Xvy3zvj/tgiVbRu4w8/hPDje1IlsZ+hGGorizmiGwVohA/XhwX16NPeALKTpv6ukef6wwRSjdl0bNW3HlICH6Zguq2JlRM+zyYN7EN9QFJLuOffetzNxcSfyFMt+ncSzsA/qZ3wXjcdbA/PxL/TWB0fURevwqWvC0+Zn3My7gjwBu4x+/SkMVLkKD2VhTuYETqOZSOm1X+74CvlgJvcitJ6gs6HUsSxdzE5XUBq6JbjSTWMTBZ+jNEq2zd1M6kJSTyOxKQEyHhfd6e58yhkytsVdmkrZEx9FcjEJVTL3Fp+4eeQXzA6B2gsbp8dyIQwHvfUlGidnan4/VdoBHxBdb9/AG0fJOx4lfdJqVS9twZwAZYvZ+le7S4G/A6PYagQvHzJV4Zf+r9rCWrOJamSZb/03PllOI51LGc2wWO+uQ3pfS5EN6C+IrG9EG5r+etGjS0OCeum+hndHB0o1q63QiYxCyTyf7i7gqBOOtnacyj/MNQvJVU56E1gDtuTFBcgFwbgxRtwcBt7CC7p/HW0PpT1jFVQWrb36OSweAu7nHkS0XNR2N+655Zqp4u59iNjSHIB1o59MtUQbFq2unIjNSxQenmNqITsxNVanosn14UMtOLAcyvqmWg8WAwjrSp1gdZUqk/fo=
-  on:
-    tags: true
-  skip_existing: true
+  - stage: deploy
+    script: skip
+    deploy:
+      provider: pypi
+      user: __token__
+      password:
+        secure: guvesCD0yt2sNwGF49X/tqlJaGduZJMccu/Xvy3zvj/tgiVbRu4w8/hPDje1IlsZ+hGGorizmiGwVohA/XhwX16NPeALKTpv6ukef6wwRSjdl0bNW3HlICH6Zguq2JlRM+zyYN7EN9QFJLuOffetzNxcSfyFMt+ncSzsA/qZ3wXjcdbA/PxL/TWB0fURevwqWvC0+Zn3My7gjwBu4x+/SkMVLkKD2VhTuYETqOZSOm1X+74CvlgJvcitJ6gs6HUsSxdzE5XUBq6JbjSTWMTBZ+jNEq2zd1M6kJSTyOxKQEyHhfd6e58yhkytsVdmkrZEx9FcjEJVTL3Fp+4eeQXzA6B2gsbp8dyIQwHvfUlGidnan4/VdoBHxBdb9/AG0fJOx4lfdJqVS9twZwAZYvZ+le7S4G/A6PYagQvHzJV4Zf+r9rCWrOJamSZb/03PllOI51LGc2wWO+uQ3pfS5EN6C+IrG9EG5r+etGjS0OCeum+hndHB0o1q63QiYxCyTyf7i7gqBOOtnacyj/MNQvJVU56E1gDtuTFBcgFwbgxRtwcBt7CC7p/HW0PpT1jFVQWrb36OSweAu7nHkS0XNR2N+655Zqp4u59iNjSHIB1o59MtUQbFq2unIjNSxQenmNqITsxNVanosn14UMtOLAcyvqmWg8WAwjrSp1gdZUqk/fo=
+      on:
+        tags: true
+      skip_existing: true
