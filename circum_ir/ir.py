@@ -56,8 +56,6 @@ def run_ir(ir_args: {}) -> {}:
     return ret
 
 
-@click.command()
-@click.pass_context
 def ir(ctx):
     global tracking_semaphore
     tracking_semaphore = Semaphore()
@@ -66,3 +64,9 @@ def ir(ctx):
     tracker_thread.daemon = True
     tracker_thread.start()
     circum.endpoint.start_endpoint(ctx, "cam", run_ir)
+
+
+@click.command()
+@click.pass_context
+def ir_command(ctx):
+    ir(ctx)

@@ -29,7 +29,7 @@ setup(
     ],
     entry_points={
         'circum.sensors': [
-            'ir=circum_ir.ir:ir'
+            'ir=circum_ir.ir:ir_command'
         ]
     },
     extras_require={
